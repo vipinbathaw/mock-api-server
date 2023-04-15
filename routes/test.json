@@ -1,0 +1,38 @@
+[
+  {
+    "path": "/",
+    "res": "You opened /test/ (converted to json with message field)"
+  },
+  {
+    "path": "/easy",
+    "res": {
+      "mykey": "Value of res is the API response, you can pass JSON objects here 😬"
+    }
+  },
+  {
+    "path": "/more-options",
+    "req": {
+      "method": "get"
+    },
+    "res": {
+      "type": "static",
+      "body": {
+        "your-face-after-using-me": "🤩"
+      }
+    }
+  },
+  {
+    "path": "/dynamic-options",
+    "req": {
+      "method": "get"
+    },
+    "res": {
+      "type": "dynamic",
+      "body": {
+        "meta": "Who uses a library for static responses!? 🙄",
+        "random-string": "$randomString",
+        "whats-going-on": "Values that begin with $ invokes the generators (e.g., random string, random number, names, more coming in future) 🤫"
+      }
+    }
+  }
+]
