@@ -29,9 +29,9 @@
     "res": {
       "type": "dynamic",
       "body": {
-        "meta": "Who uses a library for static responses!? 🙄",
+        "meta": "Who uses a new tool for static responses!? 🙄",
         "random-string": "$randomString",
-        "whats-going-on": "Values that begin with $ invokes the generators (e.g., random string, random number, names, more coming in future) 🤫"
+        "whats-going-on": "Values that begin with $ invokes the generators (e.g., random strings) 🤫"
       }
     }
   }
