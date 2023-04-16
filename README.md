@@ -43,7 +43,7 @@ Start the server and you can access the API on `localhost:5050/app-name/url-path
 Screenshots to understand because visual.cognitive.speed >>>> \*
 
 Routes defined in test.json
-![alt text](https://github.com/vipinbathaw/mock-api-server/blob/main/visuals/mock-api-server-test-routes.png?raw=true)
+![alt requests](https://github.com/vipinbathaw/mock-api-server/blob/main/visuals/mock-api-server-test-routes.png?raw=true)
 
 cURL responses
-![alt text](https://github.com/vipinbathaw/mock-api-server/blob/main/visuals/mock-api-server-test-outputs.png?raw=true)
+![alt responses](https://github.com/vipinbathaw/mock-api-server/blob/main/visuals/mock-api-server-test-outputs.png?raw=true)
