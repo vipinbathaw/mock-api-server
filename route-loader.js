@@ -1,10 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const generators = require('./generators');
 
 const urlRegex = /^\/[a-zA-Z0-9\-._~%!$&'()*+,;=:@/]*$/;
 const supportedReqMethods = ['get'];
-const responseTypes = ['static'];
+const responseTypes = ['static', 'dynamic'];
+const generatorsList = Object.keys(generators);
 
 const loadRoutes = () => {
   let error;
@@ -164,24 +166,52 @@ const getResponseType = (route) => {
 
 const generateResponse = (resType, route) => {
   let resp;
+  let defaultResp = 'Kanpai! 🙌';
 
-  if (resType == 'static') {
-    try {
-      if (route.res.body) {
-        resp = route.res.body;
-      } else {
-        resp = route.res;
-      }
-    } catch (e) {
-      resp = 'Kanpai! 🙌';
-      console.info(`Using default body '${resp}' for ${route.path}`);
+  try {
+    if (route.res.body) {
+      resp = route.res.body;
+    } else {
+      resp = route.res;
     }
+  } catch (e) {
+    resp = defaultResp;
+    console.info(`Using default body '${defaultResp}' for ${route.path}`);
+  }
+
+  // iterate and check for generator only if dynamic type and a valid plain object
+  if (
+    resType === 'dynamic' &&
+    Object.prototype.toString.call(resp) === '[object Object]'
+  ) {
+    resp = traverseResponse(resp);
   }
 
   if (typeof resp !== 'object') {
     resp = {
       message: resp,
     };
+  }
+
+  return resp;
+};
+
+const traverseResponse = (resp, path) => {
+  for (let key in resp) {
+    let val = resp[key];
+    if (Object.prototype.toString.call(val) === '[object Object]') {
+      val = traverseResponse(val);
+    } else if (typeof val === 'string') {
+      if (val.startsWith('$')) {
+        const gen = val.substring(1, val.length);
+        if (!generatorsList.includes(gen)) {
+          console.info(`Invalid generator used '${gen}' in ${path}`);
+        } else {
+          val = generators[gen].func();
+        }
+      }
+    }
+    resp[key] = val;
   }
 
   return resp;

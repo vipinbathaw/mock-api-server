@@ -14,7 +14,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
-  res.json('Bello! \u{1F436}');
+  res.json('Bello! 🐶');
 });
 
 const routes = loadRoutes();
